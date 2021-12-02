@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MemorizeGameView: View {
     private typealias cp = ControlPanel
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var game: EmojiMemoryGame
 //    let cardCount =EmojiMemoryGame.numberOfPairOfCards
 //    var addButton : some View {
 //        Button(action: {
@@ -45,10 +45,10 @@ struct MemorizeGameView: View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: cp.cardMinmumWidth ))]) {
-                    ForEach(viewModel.cards) { card in
+                    ForEach(game.cards) { card in
                         CardView(card: card).aspectRatio( cp.cardAspectRatio, contentMode: .fit)
                             .onTapGesture {
-                                viewModel.choose(card: card)
+                                game.choose(card: card)
                             }
                     }
                 }
@@ -62,8 +62,13 @@ struct MemorizeGameView: View {
 //                addButton
 //            }
         }
-        
-        
+        if game.isFinished() {
+            VStack{
+                Text("Game is Finished!")
+                Button(action: {game.reset()}, label: {Text("Reset Game.")})
+            }
+            
+        }
     }
     
     private struct ControlPanel {
@@ -76,7 +81,7 @@ struct MemorizeGameView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = EmojiMemoryGame()
-        MemorizeGameView(viewModel: viewModel)
-        MemorizeGameView(viewModel: viewModel).preferredColorScheme(.dark)
+        MemorizeGameView(game: viewModel)
+        MemorizeGameView(game: viewModel).preferredColorScheme(.dark)
     }
 }
