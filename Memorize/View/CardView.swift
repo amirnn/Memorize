@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    private typealias cv = CardView
+    private typealias ns = CardView
     private typealias cp = ControlPanel
     
     let card: MemoryGameModel<String>.Card
@@ -21,7 +21,7 @@ struct CardView: View {
                         .foregroundColor(cp.foregroundColor)
                     RoundedRectangle(cornerRadius: cp.roundedRectangleCornerRadius).strokeBorder(lineWidth: cp.roundedRectangleBorderLineWidth, antialiased: true)
                         .foregroundColor(cp.borderColor)
-                    Text(card.content).font(cv.calcFont(for: geometry) ).foregroundColor(cp.contentColor)
+                    Text(card.content).font(ns.calcFont(for: geometry) ).foregroundColor(cp.contentColor)
                 }
                 else if card.isMatched {
                     RoundedRectangle(cornerRadius: cp.roundedRectangleCornerRadius).opacity(0)

@@ -48,6 +48,7 @@ struct MemorizeGameView: View {
                     ForEach(game.cards) { card in
                         CardView(card: card).aspectRatio( cp.cardAspectRatio, contentMode: .fit)
                             .onTapGesture {
+//                                print("Hello \(factorial(5))!")
                                 game.choose(card: card)
                             }
                     }
@@ -64,8 +65,8 @@ struct MemorizeGameView: View {
         }
         if game.isFinished() {
             VStack{
-                Text("Game is Finished!")
-                Button(action: {game.reset()}, label: {Text("Reset Game.")})
+                Text("Game is Finished!").font(.largeTitle)
+                Button(action: {game.reset()}, label: {Text("Reset Game.").font(.largeTitle)})
             }
             
         }
