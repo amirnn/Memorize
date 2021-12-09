@@ -13,12 +13,16 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable {
     private var matchedCards: [Card] {cards.filter { $0.isMatched}}
     private var chosenCards: [Card] {cards.filter{$0.isFaceUp}}
     private var theOnlyFaceUpCard: Card? {
-        get {
-            chosenCards.oneAndOnly
-        }
+        get { chosenCards.oneAndOnly }
         set {
-            // Turn all the cards face down
+            // TODO: Test this
+            // We wont set it to nil but to be sure it will work regardeless:
+            // Turn all the cards face down.
             cards.indices.forEach { cards[$0].isFaceUp = false}
+            // Except the only face up card
+            if let card = newValue {
+                cards.indices.forEach { cards[$0].isFaceUp = (cards[$0].id == card.id)}
+            }
         }
     }
     var isGameFinished : Bool { matchedCards.count == cards.count }
