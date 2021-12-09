@@ -11,6 +11,7 @@ struct AspectVGrid<Item, ItemView>: View where Item: Identifiable, ItemView: Vie
     
     let items : [Item]
     let aspectRatio : CGFloat
+    @ViewBuilder
     let content: (Item) -> ItemView
     var body: some View {
         

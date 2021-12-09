@@ -15,15 +15,20 @@ struct CardView: View {
     //    var content : String
     var body: some View {
         GeometryReader{ geometry in
-            self.cardifiy(this: card, geometry: geometry)
+            ZStack {
+                let font = ns.useFont(for: geometry)
+                Text(card.content).font(font).foregroundColor(cp.contentColor)
+            }
+            .cardifiy(isFaceUp: card.isFaceUp)
         }
     }
     
-    static private func calcFont(for geometry: GeometryProxy )-> Font {
+    static private func useFont(for geometry: GeometryProxy )-> Font {
         Font.system(size:  min(geometry.size.width,geometry.size.height) * cp.contentScale)
     }
     private struct ControlPanel {
-
+        static let contentScale = 0.75
+        static let contentColor : Color = .orange
     }
 }
 
