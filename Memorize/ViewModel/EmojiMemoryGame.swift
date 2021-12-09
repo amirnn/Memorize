@@ -11,7 +11,7 @@ class EmojiMemoryGame: ObservableObject {
     typealias Model = MemoryGameModel<String>
     typealias Card = Model.Card
     private typealias ns = EmojiMemoryGame // namespace
-//    @Published static private var numberOfPairOfCards = 3
+    //    @Published static private var numberOfPairOfCards = 3
     static let numberOfPairOfCards = 5
     static let theme: EmojiTheme = .vehicles
     static let emojis = theme.getEmojis()
@@ -20,17 +20,27 @@ class EmojiMemoryGame: ObservableObject {
     }
     @Published private var model = createMemoryGame(pairOfCards: numberOfPairOfCards)
     
-    var cards: [Card] {
-        model.cards
-    }
+    
     func reset(){
         model = ns.createMemoryGame(pairOfCards: ns.numberOfPairOfCards)
     }
+    
+    
+    //    MARK: Get
+    var isFinished: Bool {
+        model.isGameFinished
+    }
+    var cards: [Card] {
+        model.cards
+    }
+    
     //    MARK: Intents
     func choose(card: Card){
         model.choose(card)
     }
-    func isFinished() -> Bool {
-        model.isGameFinished
+    func shuffle(){
+        withAnimation{
+            model.shuffle()
+        }
     }
 }

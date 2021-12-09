@@ -10,65 +10,16 @@ import SwiftUI
 struct MemorizeGameView: View {
     private typealias cp = ControlPanel
     @ObservedObject var game: EmojiMemoryGame
-//    let cardCount =EmojiMemoryGame.numberOfPairOfCards
-//    var addButton : some View {
-//        Button(action: {
-//            if cardCount < emojiArray.count {
-//                cardCount += 1
-//            }
-//        }) {
-//            Image(systemName: "plus.circle")
-//                .font(.largeTitle)
-//                .padding(.horizontal)
-//        }
-//    }
-//    var minusButton : some View {
-//        Button(action: {
-//            if cardCount > 0 {
-//                cardCount -= 1
-//            }
-//        }, label: {
-//            Image(systemName: "minus.circle")
-//                .font(.largeTitle)
-//                .padding(.horizontal)
-//        })
-//    }
-//    var shuffleButton : some View {
-//        Button(action:{
-//            emojiArray.shuffle()
-//        }, label: {
-//            Text("Shuffle")
-//                .font(.largeTitle)
-//        } )
-//    }
     var body: some View {
         VStack {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: cp.cardMinmumWidth ))]) {
-                    ForEach(game.cards) { card in
-                        CardView(card: card).aspectRatio( cp.cardAspectRatio, contentMode: .fit)
-                            .onTapGesture {
-//                                print("Hello \(factorial(5))!")
-                                game.choose(card: card)
-                            }
-                    }
-                }
-            }
-//            Spacer()
-//            HStack {
-//                minusButton
-//                Spacer()
-//                shuffleButton
-//                Spacer()
-//                addButton
-//            }
+            AspectVGrid(game: game, cardAspectRatio: cp.cardAspectRatio)
+            Button(action: {game.shuffle()}, label: {Text("Shuffle Cards").font(.largeTitle)})
         }
-        if game.isFinished() {
+        if game.isFinished {
             VStack{
                 Text("Game is Finished!").font(.largeTitle)
                 Button(action: {game.reset()}, label: {Text("Reset Game.").font(.largeTitle)})
             }
-            
         }
     }
     

@@ -33,6 +33,10 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable {
         cards.shuffle()
     }
     
+    mutating func shuffle(){
+        cards.shuffle()
+    }
+    
     //    MARK: MV -> Model, Intents
     mutating func choose(_ card: Card){
         // Suppose we have a chosen card, and it is a match, and it is not the same previously selected card
