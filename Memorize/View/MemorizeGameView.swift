@@ -12,7 +12,13 @@ struct MemorizeGameView: View {
     @ObservedObject var game: EmojiMemoryGame
     var body: some View {
         VStack {
-            AspectVGrid(game: game, cardAspectRatio: cp.cardAspectRatio)
+            AspectVGrid(items: game.cards, aspectRatio: cp.cardAspectRatio){ card in
+                CardView(card: card)
+                    .padding()
+                    .onTapGesture {
+                        game.choose(card: card)
+                    }
+            }
             Button(action: {game.shuffle()}, label: {Text("Shuffle Cards").font(.largeTitle)})
         }
         if game.isFinished {
